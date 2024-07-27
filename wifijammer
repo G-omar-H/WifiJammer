@@ -237,7 +237,7 @@ def channel_hop(mon_iface, args):
                 print('['+R+'-'+W+'] Could not execute "iw"')
                 os.kill(os.getpid(), SIGINT)
                 sys.exit(1)
-            for line in proc.communicate()[1].split('\n'):
+            for line in proc.communicate()[1].decode('utf-8').split('\n'):
                 if len(line) > 2:  # iw dev shouldnt display output unless there's an error
                     err = '['+R+'-'+W+'] Channel hopping failed: '+R+line+W
 
@@ -314,16 +314,29 @@ def output(err, monchannel):
     with lock:
         for ca in clients_APs:
             if len(ca) > 3:
-                print('['+T+'*'+W+'] '+O+ca[0]+W+' - '+O+ca[1] +
-                      W+' - '+ca[2].ljust(2)+' - '+T+ca[3]+W)
+                print(f"[{T}*{W}] {O}{ca[0]}{W} - {O}{ca[1]}{W} - {ca[2].ljust(2)} - {T}{ca[3]}{W}")
+
             else:
                 print('['+T+'*'+W+'] '+O+ca[0]+W+' - '+O+ca[1]+W+' - '+ca[2])
     if len(APs) > 0:
         print('\n      Access Points     ch   ESSID')
     with lock:
         for ap in APs:
-            print('['+T+'*'+W+'] '+O+ap[0]+W+' - ' +
-                  ap[1].ljust(2)+' - '+T+ap[2]+W)
+             # Check if decoding is necessary
+            if isinstance(ap[0], bytes):
+                ap_name = ap[0].decode('utf-8')
+            else:
+                ap_name = ap[0]  # Already a string, no decoding needed
+
+            # Check if decoding is necessary
+            if isinstance(ap[2], bytes):
+                essid = ap[2].decode('utf-8')
+            else:
+                essid = ap[2]  # Already a string, no decoding needed
+
+            # Print with decoded values
+                print(f"[{T}*{W}] {O}{ap_name}{W} - {ap[1].ljust(2)} - {T}{essid}{W}")
+
     print('')
 
 
