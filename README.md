@@ -63,9 +63,3 @@ License
 
 Copyright (c) 2014, OGhazi
 All rights reserved.
-
-
-***
-* [danmcinerney.org](http://danmcinerney.org)
-* [![Flattr this](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=DanMcInerney&url=https://github.com/DanMcInerney/wifijammer&title=wifijammer&language=&tags=github&category=software)
-* [![Analytics](https://ga-beacon.appspot.com/UA-46613304-3/wifijammer/README.md)](https://github.com/igrigorik/ga-beacon)
